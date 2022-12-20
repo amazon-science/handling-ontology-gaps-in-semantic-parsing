@@ -1,0 +1,41 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+train_path: "../HSF-KQA-PRO/test.csv"
+validation_path: "../HSF-KQA-PRO/dev.csv"
+test_path: "../HSF-KQA-PRO/test.csv"
+
+
+top_test_path: "../HSF-KQA-PRO/test_ood.csv"
+
+
+
+batch_size: 32
+batch_size_dev: 512
+batch_size_test: 512
+
+
+num_workers: 0
+
+balance_dataset_train: False
+balance_dataset_dev: False
+
+use_only_perplexity: False
+use_only_activations: False
+
+do_upsampling_train: False
+do_upsampling_dev: False
+
+
+no_kb_filter: False
+use_only_mc_dropout: False
+
+add_mc_dropout: False
+
+
+n_features: 73
+
+
+feature_list: []
+
+is_top_dataset: False

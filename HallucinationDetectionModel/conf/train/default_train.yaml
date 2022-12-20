@@ -1,0 +1,40 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+# reproducibility
+seed: 34
+
+# model name
+model_name: default_name  # used to name the directory in which model's checkpoints will be stored (experiments/model_name/...)
+project: "ciao"
+# pl_trainer
+pl_trainer:
+  _target_: pytorch_lightning.Trainer
+  gpus: [0]
+  accumulate_grad_batches: 1
+  #val_check_interval: 1.0  # you can specify an int "n" here => validation every "n" steps
+  max_epochs: 100
+  fast_dev_run: false
+  precision: 16
+  deterministic: True
+  
+
+# early stopping callback
+# "early_stopping_callback: null" will disable early stopping
+early_stopping_callback:
+  _target_: pytorch_lightning.callbacks.EarlyStopping
+  monitor: val_f1_avg
+  mode: max
+  patience: 50
+
+# model_checkpoint_callback
+# "model_checkpoint_callback: null" will disable model checkpointing
+model_checkpoint_callback:
+  _target_: pytorch_lightning.callbacks.ModelCheckpoint
+  monitor: val_f1_avg
+  mode: max
+  verbose: True
+  save_top_k: 1
+  #dirpath: experiments/${train.model_name}
+  filename: 'checkpoint-val_f1_avg_{val_f1_avg:.4f}-epoch_{epoch:02d}'
+  auto_insert_metric_name: False
